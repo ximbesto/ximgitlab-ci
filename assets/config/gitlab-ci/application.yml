@@ -1,0 +1,50 @@
+defaults: &defaults
+  gitlab_server:
+    url: '{{GITLAB_URL}}' # Replace with your gitlab server url
+    app_id: '{{GITLAB_APP_ID}}'
+    app_secret: '{{GITLAB_APP_SECRET}}'
+
+  ## Gitlab CI settings  
+  gitlab_ci:
+    ## Web server settings
+    host: "{{GITLAB_CI_HOST}}"
+    port: {{GITLAB_CI_PORT}}
+    https: {{GITLAB_CI_HTTPS}}
+
+    ## Email settings
+    # Email address used in the "From" field in mails sent by GitLab-CI
+    email_from: "{{GITLAB_CI_EMAIL}}"
+
+    # Email address of your support contact (default: same as email_from)
+    support_email: "{{GITLAB_CI_SUPPORT}}"
+
+    # Default project notifications settings:
+    #
+    # Send emails only on broken builds (default: true)
+    all_broken_builds: {{GITLAB_CI_NOTIFY_ON_BROKEN_BUILDS}}
+    #
+    # Add committer to recipients list (default: false)
+    add_committer: {{GITLAB_CI_NOTIFY_ADD_COMMITTER}}
+
+  gravatar:
+    enabled: true
+    plain_url: "http://www.gravatar.com/avatar/%{hash}?s=%{size}&d=mm"
+    ssl_url:   "https://secure.gravatar.com/avatar/%{hash}?s=%{size}&d=mm"
+
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  gitlab_server:
+    url: '{{GITLAB_URL}}' 
+    app_id: '{{GITLAB_APP_ID}}'
+    app_secret: '{{GITLAB_APP_SECRET}}'
+  gitlab_ci:
+    host: "{{GITLAB_CI_HOST}}"
+    port: {{GITLAB_CI_PORT}}
+    https: {{GITLAB_CI_HTTPS}}
+
+production:
+  <<: *defaults
